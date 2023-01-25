@@ -1,10 +1,7 @@
 from __future__ import division, print_function
-
-
-# Flask utils
+from gevent.pywsgi import WSGIServer
 from flask import Flask, redirect, url_for, request, render_template
 from werkzeug.utils import secure_filename
-from gevent.pywsgi import WSGIServer
 import modelClass
 
 # Define a flask app
@@ -14,8 +11,7 @@ app = Flask(__name__)
 model = modelClass.get_model()
 # print('Model loaded. Start serving...')
 
-# You can also use pretrained model from Keras
-# Check https://keras.io/applications/
+
 #from keras.applications.resnet50 import ResNet50
 #model = ResNet50(weights='imagenet')
 #model.save('')
@@ -52,21 +48,11 @@ def upload():
         # Make prediction
         preds = model_predict(file_path, model)
 
-        # # Process your result for human
-        # pred_class = preds.argmax(axis=-1)    # Simple argmax
-                   
-        # # pred_class = decode_predictions(preds, top=1)   # ImageNet Decode
-        # # result = str(pred_class[0][0][1])               # Convert to string
-        
-        # # pred_class = int(pred_class)
-        # classes ={0: "ALL", 1: "AML", 2: "CLL", 3: "CML"}
-
-        # return str("The image is classified as: "+str(classes[pred_class]))
+        # return str(preds)
         return str(preds)
 
     return "Error"
 
-
 if __name__ == '__main__':
-    app.run(debug=True)
-
+    http_server = WSGIServer(('0.0.0.0', 5000), app.wsgi_app)
+    http_server.serve_forever()
