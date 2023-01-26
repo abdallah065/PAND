@@ -46,6 +46,8 @@ def upload():
         f.save(file_path)
 
         # Make prediction
+        print("File path is: ", file_path)
+        print("log: ", modelClass.predict_image(file_path, model))
         data = modelClass.predict_image(file_path, model)
 
         return str(data)
