@@ -53,5 +53,5 @@ def upload():
     return "Error"
 
 if __name__ == '__main__':
-    http_server = WSGIServer(('0.0.0.0', 5001), app.wsgi_app)
-    http_server.serve_forever()
+    #run app in debug mode on port 5000
+    app.run(port=5000)

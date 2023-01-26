@@ -21,9 +21,6 @@ import pandas as pd             # for working with dataframes
 # from torchsummary import summary              # for getting the summary of our model
 # from sklearn.metrics import confusion_matrix  # for confusion matrix
 #extracting the rar file
-import patoolib
-import itertools
-
 
 
 
@@ -135,8 +132,6 @@ def get_model():
     #get the relative path of the model
     model_path = os.path.join(os.path.dirname(__file__),'plant-disease-model1.pth')
     #check if the model is exist
-    if not os.path.exists(model_path):
-        patoolib.extract_archive(os.path.join(os.path.dirname(__file__),'plant-disease-model1.rar'), outdir=os.path.dirname(__file__))
     model.load_state_dict(torch.load(model_path, map_location=device))
     model = model.eval()
     return model
