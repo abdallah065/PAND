@@ -53,7 +53,7 @@ $(document).ready(function () {
                 console.log(json_data);
                 //assign values to html the 3 html elements
                 for(var i=0;i<3;i++){
-                    $('#plant'+(i+1)).text(json_data[i].plant);
+                $('#plant'+(i+1)).text(json_data[i].plant);
                 if(json_data[i].status == "healthy"){
                     $('#status'+(i+1)).css('color', 'green');
                     $('#disease'+(i+1)).css('color', 'green');
@@ -66,6 +66,25 @@ $(document).ready(function () {
                     $('#status'+(i+1)).text("Unhealthy");
                     $('#disease'+(i+1)).text(json_data[i].disease);
                     $('#confidence'+(i+1)).text(json_data[i].confidance + " %").css('color', 'black');
+                }
+                //if confidence is more than 99% then show one plant and center it
+                if(json_data[i].confidance > 99){
+                    $('#plant'+(i+1)).css('margin-left', 'auto');
+                    $('#plant'+(i+1)).css('margin-right', 'auto');
+                    //remove float left
+                    $('#plant'+(i+1)).css('float', 'none');
+                    //hide the other 2 plants
+                    $('#plant'+(i+2)).hide();
+                    $('#plant'+(i+3)).hide();
+                    break;
+                }else{
+                    //back to default from the css file for the 3 plants
+                    $('#plant'+(i+1)).css('margin-left', '0');
+                    $('#plant'+(i+1)).css('margin-right', '0');
+                    $('#plant'+(i+1)).css('float', 'left');
+                    $('#plant'+(i+2)).show();
+                    $('#plant'+(i+3)).show();
+                    
                 }
                 $('#result').fadeIn(600);
                 console.log('Success!');
