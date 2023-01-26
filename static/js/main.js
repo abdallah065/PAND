@@ -51,20 +51,25 @@ $(document).ready(function () {
                 data = data.replace(/'/g, '"');
                 json_data = JSON.parse(data) //(plant,status,disease)
                 console.log(json_data);
-                $('#plant').text(json_data.plant);
-                if(json_data.status == "healthy"){
-                    $('#status').css('color', 'green');
-                    $('#disease').css('color', 'green');
-                    $('#status').text("Healthy");
-                    $('#disease').text("No disease detected");
+                //assign values to html the 3 html elements
+                for(var i=0;i<3;i++){
+                    $('#plant'+(i+1)).text(json_data[i].plant);
+                if(json_data[i].status == "healthy"){
+                    $('#status'+(i+1)).css('color', 'green');
+                    $('#disease'+(i+1)).css('color', 'green');
+                    $('#status'+(i+1)).text("Healthy");
+                    $('#disease'+(i+1)).text("No disease detected");
+                    $('#confidence'+(i+1)).text(json_data[i].confidance + " %").css('color', 'black');
                 }else{
-                    $('#status').css('color', 'red');
-                    $('#disease').css('color', 'red');
-                    $('#status').text("Unhealthy");
-                    $('#disease').text(json_data.disease);
+                    $('#status'+(i+1)).css('color', 'red');
+                    $('#disease'+(i+1)).css('color', 'red');
+                    $('#status'+(i+1)).text("Unhealthy");
+                    $('#disease'+(i+1)).text(json_data[i].disease);
+                    $('#confidence'+(i+1)).text(json_data[i].confidance + " %").css('color', 'black');
                 }
                 $('#result').fadeIn(600);
                 console.log('Success!');
+            }
             },
         });
     });

@@ -22,6 +22,7 @@ import pandas as pd             # for working with dataframes
 # from sklearn.metrics import confusion_matrix  # for confusion matrix
 #extracting the rar file
 import patoolib
+import itertools
 
 
 
@@ -196,10 +197,19 @@ def predict_image(image ,model , darw=False, local=True):
     else:
         img = image
     yb = model(img)
-    _, preds = torch.max(yb, dim=1)
-    return classes_out[preds[0].item()]
- 
- 
+    #the confidance of all classes
+    confidance = torch.nn.functional.softmax(yb, dim=1)
+    #return the max 3 confidances and the labeles
+    confidance , preds = torch.topk(confidance,3)
+    confidance = confidance[0].tolist()
+    preds = preds[0].tolist()
+    data = [] 
+    for i in range(len(preds)):
+        data.append(classes_out[preds[i]])
+        data[i]["confidance"] = round(confidance[i]*100,2)
+        
+    return data
+    
 #make image folder for the test data from the url
 def make_image_folder(url,local=True):
     #write function docstring for parameters and return values
