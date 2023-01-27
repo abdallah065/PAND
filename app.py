@@ -15,8 +15,6 @@ model = modelClass.get_model()
 #from keras.applications.resnet50 import ResNet50
 #model = ResNet50(weights='imagenet')
 #model.save('')
-print("APP is running now on http://127.0.0.1:5000/")
-
 
 def model_predict(img_path,model):
     preds = modelClass.predict_image(img_path,model)
@@ -56,4 +54,4 @@ def upload():
 
 if __name__ == '__main__':
     #run app in debug mode on port 5000
-    app.run()
+    app.run(debug=False, port=5001)
