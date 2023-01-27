@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>P.A.N.D System</title>
-    <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="bootstrap-4.6.2-dist/js/jquery-3.6.0.js"></script>
+    <link href="bootstrap-4.6.2-dist/css/bootstrap.css" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">      
 </head>
 
@@ -45,28 +43,72 @@
 
     <div class="loader" style="display:none;"></div>
 
-    <div id="result" class="result_container">
-        <h2 style="text-align:center;">Result</h2>
-        <div class="st_box">
-            <center><h4>Plant: <span id="plant1"></span></h4></center>
-            <h5>Status: <span id="status1"></span></h5>
-            <h5>Disease: <span id="disease1"></span></h5>
-            <h5>Confidence: <span id="confidence1"></span></h5>
-        </div>
-        <div class="nd_box">
-            <center><h4>Plant: <span id="plant2"></span></h4></center>
-            <h5>Status: <span id="status2"></span></h5>
-            <h5>Disease: <span id="disease2"></span></h5>
-            <h5>Confidence: <span id="confidence2"></span></h5>
-        </div>
-        <div class="rd_box">
-            <center><h4>Plant: <span id="plant3"></span></h4></center>
-            <h5>Status: <span id="status3"></span></h5>
-            <h5>Disease: <span id="disease3"></span></h5>
-            <h5>Confidence: <span id="confidence3"></span></h5>
-        </div>
-    </div>
+    <hr class="hr hr-blurry" /> 
+    <div id="all_results">
+        <center><h2>Top Result</h2></center>
 
+        <hr class="hr hr-blurry" />
+        <div class="card-deck" style="margin: 0; padding: 20px 0px 0px;" id="highest_result">
+            <div class="card" id="highest_card">
+                <div class="card-header" id="highest_card_header">
+                    <h5 class="card-title" id="highest_plant_name">Plant: </h5>
+                    <h6 class="card-subtitle mb-2 text-muted"  id="highest_status"></h6>
+                </div>
+                <div class="card-body" id="highest_card_body">
+                    <p class="card-text" id="highest_disease_desc"></p>
+                </div>
+                <div class="card-footer" id="highest_card_footer">
+                    <small class="text-muted" id="highest_confidence">Confidence: </small>
+                </div>
+            </div>
+        </div>
+
+        <hr class="hr hr-blurry" />
+
+        <div class="card-deck" style="margin: 0; padding: 20px 0px 0px;" id="result">
+            <center><h4 style="margin: 4px 4px 4px 4px;">Other Results</h4></center>
+            <hr class="hr hr-blurry" />
+            <div class="card" id="card1">
+                <div class="card-header" id="card_header1">
+                    <h5 class="card-title" id="plant_name1">Plant: </h5>
+                    <h6 class="card-subtitle mb-2 text-muted"  id="status1"></h6>
+                </div>
+                <div class="card-body" id="card_body1">
+                    <p class="card-text" id="disease_desc1"></p>
+                </div>
+                    <div class="card-footer" id="card_footer1">
+                    <small class="text-muted" id="confidence1">Confidence: </small>
+                </div>
+            </div>
+            <div class="card" id="card2">
+                <div class="card-header" id="card_header2">
+                    <h5 class="card-title" id="plant_name2">Plant: </h5>
+                    <h6 class="card-subtitle mb-2 text-muted"  id="status2"></h6>
+                </div>
+                <div class="card-body" id="card_body2">
+                    <p class="card-text" id="disease_desc2"></p>
+                </div>
+                <div class="card-footer" id="card_footer2">
+                    <small class="text-muted" id="confidence2">Confidence: </small>
+                </div>
+            </div>
+
+            <div class="card" id="card3">
+                <div class="card-header" id="card_header3">
+                    <h5 class="card-title" id="plant_name3">Plant: </h5>
+                    <h6 class="card-subtitle mb-2 text-muted"  id="status3"></h6>
+                </div>
+                <div class="card-body" id="card_body3">
+                    <p class="card-text" id="disease_desc3"></p>
+                </div>
+                <div class="card-footer" id="card_footer3">
+                    <small class="text-muted" id="confidence3">Confidence: </small>
+                </div>
+            </div>
+        
+        </div>
+        <br>
+    </div>
 </div>            
         </div>
     </div>

@@ -195,14 +195,13 @@ def predict_image(image ,model , darw=False, local=True):
     #the confidance of all classes
     confidance = torch.nn.functional.softmax(yb, dim=1)
     #return the max 3 confidances and the labeles
-    confidance , preds = torch.topk(confidance,3)
+    confidance , preds = torch.topk(confidance,4)
     confidance = confidance[0].tolist()
     preds = preds[0].tolist()
     data = [] 
     for i in range(len(preds)):
         data.append(classes_out[preds[i]])
         data[i]["confidance"] = round(confidance[i]*100,2)
-        
     return data
     
 #make image folder for the test data from the url

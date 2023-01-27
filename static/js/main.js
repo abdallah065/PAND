@@ -3,8 +3,10 @@ $(document).ready(function () {
     $('.image-section').hide();
     $('.loader').hide();
     $('#result').hide();
+    $('#highest_card').hide();
     $('#file_name').hide()
     $('#classes').hide()
+    $('#all_results').hide()
 
     // Upload Preview
     function readURL(input) {
@@ -12,7 +14,6 @@ $(document).ready(function () {
             var reader = new FileReader();
             reader.onload = function (e) {
                 $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
-                $('#file_name').text(input.files[0].name).show();
                 console.log(input.files[0].name)
                 $('#imagePreview').hide();
                 $('#imagePreview').fadeIn(650);
@@ -24,6 +25,8 @@ $(document).ready(function () {
         $('.image-section').show();
         $('#btn-predict').show();
         $('#result').hide();
+        $('#highest_card').hide();
+        $('#all_results').hide()
         readURL(this);
     });
 
@@ -45,50 +48,92 @@ $(document).ready(function () {
             processData: false,
             async: true,
             success: function (data) {
-                console.log(data);
                 // Get and display the result
                 $('.loader').hide();
                 data = data.replace(/'/g, '"');
-                json_data = JSON.parse(data) //(plant,status,disease)
+                json_data = JSON.parse(data); //(plant,status,disease)
                 console.log(json_data);
-                //assign values to html the 3 html elements
-                for(var i=0;i<3;i++){
-                $('#plant'+(i+1)).text(json_data[i].plant);
-                if(json_data[i].status == "healthy"){
-                    $('#status'+(i+1)).css('color', 'green');
-                    $('#disease'+(i+1)).css('color', 'green');
-                    $('#status'+(i+1)).text("Healthy");
-                    $('#disease'+(i+1)).text("No disease detected");
-                    $('#confidence'+(i+1)).text(json_data[i].confidance + " %").css('color', 'black');
-                }else{
-                    $('#status'+(i+1)).css('color', 'red');
-                    $('#disease'+(i+1)).css('color', 'red');
-                    $('#status'+(i+1)).text("Unhealthy");
-                    $('#disease'+(i+1)).text(json_data[i].disease);
-                    $('#confidence'+(i+1)).text(json_data[i].confidance + " %").css('color', 'black');
+                $('#all_results').show();
+                // log all child and subchild elements names indside highest_result
+                highest_status="";
+                highest_plant="";
+                highest_confidence="";
+                highest_disease_desc="";
+                $('#highest_result').children().each(function() {
+                    console.log($(this).attr('id'));
+                    $(this).children().each(function() {
+                        console.log($(this).attr('id'));
+                        $(this).children().each(function() {
+                            // if its id is highest_status
+                            if($(this).attr('id') == 'highest_status'){
+                                if (json_data[0].status == 'Healthy'){
+                                    $(this).text("Healthy 🌱").css('color', 'green !important');
+                                }else{
+                                    $(this).text(json_data[0].disease).css('color', 'red !important');
+                                }
+
+                            }else if($(this).attr('id') == 'highest_plant_name'){
+                                $(this).text("🌿 "+json_data[0].plant+" 🌿");
+
+                            }else if($(this).attr('id') == 'highest_confidence'){
+                                $(this).text("Confidence: "+json_data[0].confidance+ "%");
+                                
+                            }else if($(this).attr('id') == 'highest_disease_desc'){
+                                $(this).text('Comming Soon...');
+
+                            }
+                        });
+                    });
+                });
+                $('#highest_card').fadeIn(500);
+                if(json_data[0].confidance < 99){
+                    plants = [];
+                    statuses = [];
+                    confidences = [];
+                    diseases_desc = [];
+                    // log all child and subchild elements names indside result div
+                    $('#result').children().each(function() {
+                        console.log($(this).attr('id'));
+                        $(this).children().each(function() {
+                            console.log($(this).attr('id'));
+                            $(this).children().each(function() {
+                                $(this).children().each(function() {
+                                    console.log($(this).attr('id'));
+                                    // if its id is status1,2,3 add it to list called statuses
+                                    if($(this).attr('id') == 'status1' || $(this).attr('id') == 'status2' || $(this).attr('id') == 'status3'){
+                                        statuses.push($(this).attr('id'));
+                                    }else if($(this).attr('id') == 'plant_name1' || $(this).attr('id') == 'plant_name2' || $(this).attr('id') == 'plant_name3'){
+                                        plants.push($(this).attr('id'));
+                                    }else if($(this).attr('id') == 'confidence1' || $(this).attr('id') == 'confidence2' || $(this).attr('id') == 'confidence3'){
+                                        confidences.push($(this).attr('id'));
+                                    }else if($(this).attr('disease_desc1') == 'disease_desc1' || $(this).attr('disease_desc2') == 'disease_desc2' || $(this).attr('disease_desc3') == 'disease_desc3'){
+                                        diseases_desc.push($(this).attr('id'));
+                                    }
+                                });
+                            });
+                        });
+                    });
+                    //assign values to html the 3 html elements
+                    for(var i=0;i<3;i++){
+                        // add plant leaf imoji and plant name
+                        $('#'+plants[i]).text("🌿 "+json_data[i+1].plant+" 🌿");
+                        // add status
+                        if (json_data[i].status == 'Healthy'){
+                            $('#'+statuses[i]).text("Healthy 🌱").css('color', 'green !important');
+                        }else{
+                            $('#'+statuses[i]).text(json_data[i+1].disease).css('color', 'red !important');
+                        }
+                        // add disease description
+                        $('#'+diseases_desc[i]).text(json_data[i+1].disease);
+                        // add confidence
+                        $('#'+confidences[i]).text("Confidence: "+json_data[i+1].confidance+ "%");
+                        // add disease description
+                        $('#'+diseases_desc[i]).text('Comming Soon...');
+                    }
+
+                    $('#result').fadeIn(650);
+                    console.log('Success!');
                 }
-                //if confidence is more than 99% then show one plant and center it
-                if(json_data[i].confidance > 99){
-                    $('#plant'+(i+1)).css('margin-left', 'auto');
-                    $('#plant'+(i+1)).css('margin-right', 'auto');
-                    //remove float left
-                    $('#plant'+(i+1)).css('float', 'none');
-                    //hide the other 2 plants
-                    $('#plant'+(i+2)).hide();
-                    $('#plant'+(i+3)).hide();
-                    break;
-                }else{
-                    //back to default from the css file for the 3 plants
-                    $('#plant'+(i+1)).css('margin-left', '0');
-                    $('#plant'+(i+1)).css('margin-right', '0');
-                    $('#plant'+(i+1)).css('float', 'left');
-                    $('#plant'+(i+2)).show();
-                    $('#plant'+(i+3)).show();
-                    
-                }
-                $('#result').fadeIn(600);
-                console.log('Success!');
-            }
             },
         });
     });
