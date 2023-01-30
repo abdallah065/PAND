@@ -7,7 +7,6 @@ $(document).ready(function () {
     $('#file_name').hide()
     $('#classes').hide()
     $('#all_results').hide()
-    $('#html_result').hide()
 
     // Upload Preview
     function readURL(input) {
@@ -28,7 +27,6 @@ $(document).ready(function () {
         $('#result').hide();
         $('#highest_card').hide();
         $('#all_results').hide()
-        $('#html_result').hide()
         readURL(this);
     });
 
@@ -81,20 +79,13 @@ $(document).ready(function () {
                                 $(this).text("Confidence: "+json_data[0].confidance+ "%");
                                 
                             }else if($(this).attr('id') == 'highest_disease_desc'){
-                                class_name = json_data[0].class_name;
-                                console.log(class_name);
-                                $htmljson = $.getJSON("static\\js\\result_html.json", function(data) {
-                                    $htmltext = data[class_name];
-                                    $('#highest_disease_desc').html($htmltext);
-                                    console.log(data[class_name]);
-                                });
+                                $(this).text('Comming Soon...');
 
                             }
                         });
                     });
                 });
                 $('#highest_card').fadeIn(500);
-                
                 if(json_data[0].confidance < 99){
                     plants = [];
                     statuses = [];
@@ -122,10 +113,6 @@ $(document).ready(function () {
                             });
                         });
                     });
-                    console.log(plants);
-                    console.log(statuses);
-                    console.log(confidences);
-                    console.log(diseases_desc);
                     //assign values to html the 3 html elements
                     for(var i=0;i<3;i++){
                         // add plant leaf imoji and plant name
@@ -147,7 +134,6 @@ $(document).ready(function () {
                     $('#result').fadeIn(650);
                     console.log('Success!');
                 }
-                
             },
         });
     });
