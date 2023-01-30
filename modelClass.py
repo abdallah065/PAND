@@ -202,6 +202,7 @@ def predict_image(image ,model , darw=False, local=True):
     for i in range(len(preds)):
         data.append(classes_out[preds[i]])
         data[i]["confidance"] = round(confidance[i]*100,2)
+        data[i]["class_name"] = get_label(preds[i])
     return data
     
 #make image folder for the test data from the url

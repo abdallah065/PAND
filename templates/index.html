@@ -1,95 +1,121 @@
 {% extends "base.html" %} {% block content %}
 
-<h2>Choose the image to feed into the model</h2>
+<h3 class="title text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3"> Test Your Plants</h3>
 
 <div>
+  <center>
     <form id="upload-file" method="post" enctype="multipart/form-data">
-        <label for="imageUpload" class="upload-label">
-            Choose...
-        </label>
-        <input type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg">
+      <label for="imageUpload" class="upload-label"> Choose... </label>
+      <input
+        type="file"
+        name="file"
+        id="imageUpload"
+        accept=".png, .jpg, .jpeg, .PNG, .JPG, .JPEG"
+      />
     </form>
+  </center>
 
-    <div class="image-section" style="display:none;">
-        <div class="img-preview">
-            <div id="imagePreview">
-            </div>
-        </div>
-        <div>
-            <button type="button" class="btn btn-primary btn-lg " id="btn-predict">Predict!</button>
-        </div>
+  <center>
+    <div class="image-section" style="display: none">
+      <div class="img-preview">
+        <div id="imagePreview"></div>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-primary btn-lg"
+          id="btn-predict"
+        >
+          Predict!
+        </button>
+      </div>
     </div>
+  </center>
 
-    <div class="loader" style="display:none;"></div>
+  <div class="loader" style="display: none"></div>
 
-    <hr class="hr hr-blurry" /> 
+  <hr class="hr hr-blurry" />
+  <div id="all_results">
+    <center><h2>Top Result</h2></center>
 
-    <div id="all_results">
-        <center><h2>Top Result</h2></center>
-
-        <hr class="hr hr-blurry" />
-        <div class="card-deck" style="margin: 0; padding: 20px 0px 0px;" id="highest_result">
-            <div class="card" id="highest_card">
-                <div class="card-header" id="highest_card_header">
-                    <h5 class="card-title" id="highest_plant_name">Plant: </h5>
-                    <h6 class="card-subtitle mb-2 text-muted"  id="highest_status"></h6>
-                </div>
-                <div class="card-body" id="highest_card_body">
-                    <p class="card-text" id="highest_disease_desc"></p>
-                </div>
-                <div class="card-footer" id="highest_card_footer">
-                    <small class="text-muted black" id="highest_confidence">Confidence: </small>
-                </div>
-            </div>
+    <hr class="hr hr-blurry" />
+    <div
+      class="card-deck"
+      style="margin: 0; padding: 20px 0px 0px"
+      id="highest_result"
+    >
+      <div class="card" id="highest_card">
+        <div class="card-header" id="highest_card_header">
+          <h5 class="card-title" id="highest_plant_name">Plant:</h5>
+          <h6
+            class="card-subtitle mb-2 text-muted"
+            id="highest_status"
+          ></h6>
         </div>
-
-        <hr class="hr hr-blurry" />
-        <div id="result">
-            <center><h4 style="margin: 4px 4px 4px 4px;">Other Results</h4></center>
-            <hr class="hr hr-blurry" />
-            <div class="card-deck" style="margin: 0; padding: 20px 0px 0px;">
-                <div class="card" id="card1">
-                    <div class="card-header" id="card_header1">
-                        <h5 class="card-title" id="plant_name1">Plant: </h5>
-                        <h6 class="card-subtitle mb-2 text-muted"  id="status1"></h6>
-                    </div>
-                    <div class="card-body" id="card_body1">
-                        <p class="card-text" id="disease_desc1"></p>
-                    </div>
-                        <div class="card-footer" id="card_footer1">
-                        <small class="text-muted" id="confidence1">Confidence: </small>
-                    </div>
-                </div>
-                <div class="card" id="card2">
-                    <div class="card-header" id="card_header2">
-                        <h5 class="card-title" id="plant_name2">Plant: </h5>
-                        <h6 class="card-subtitle mb-2 text-muted"  id="status2"></h6>
-                    </div>
-                    <div class="card-body" id="card_body2">
-                        <p class="card-text" id="disease_desc2"></p>
-                    </div>
-                    <div class="card-footer" id="card_footer2">
-                        <small class="text-muted" id="confidence2">Confidence: </small>
-                    </div>
-                </div>
-
-                <div class="card" id="card3">
-                    <div class="card-header" id="card_header3">
-                        <h5 class="card-title" id="plant_name3">Plant: </h5>
-                        <h6 class="card-subtitle mb-2 text-muted"  id="status3"></h6>
-                    </div>
-                    <div class="card-body" id="card_body3">
-                        <p class="card-text" id="disease_desc3"></p>
-                    </div>
-                    <div class="card-footer" id="card_footer3">
-                        <small class="text-muted" id="confidence3 block">Confidence: </small>
-                    </div>
-                </div>
-            
-            </div>
+        <div class="card-body" id="highest_card_body">
+          <p class="card-text" id="highest_disease_desc"></p>
         </div>
-        <br>
+        <div class="card-footer" id="highest_card_footer">
+          <small class="text-muted black" id="highest_confidence"
+            >Confidence:
+          </small>
+        </div>
+      </div>
     </div>
-</div>
+    <hr class="hr hr-blurry" />
+    <center>
+      <h4 style="margin: 4px 4px 4px 4px">Other Results</h4>
+    </center>
+    <br/>
+    <div
+      class="card-deck"
+      style="margin: 0; padding: 20px 0px 0px"
+      id="result"
+    >
+      <div class="card" id="card1">
+        <div class="card-header" id="card_header1">
+          <h5 class="card-title" id="plant_name1">Plant:</h5>
+          <h6 class="card-subtitle mb-2 text-muted" id="status1"></h6>
+        </div>
+        <div class="card-body" id="card_body1">
+          <p class="card-text" id="disease_desc1"></p>
+        </div>
+        <div class="card-footer" id="card_footer1">
+          <small class="text-muted" id="confidence1"
+            >Confidence:
+          </small>
+        </div>
+      </div>
+      <div class="card" id="card2">
+        <div class="card-header" id="card_header2">
+          <h5 class="card-title" id="plant_name2">Plant:</h5>
+          <h6 class="card-subtitle mb-2 text-muted" id="status2"></h6>
+        </div>
+        <div class="card-body" id="card_body2">
+          <p class="card-text" id="disease_desc2"></p>
+        </div>
+        <div class="card-footer" id="card_footer2">
+          <small class="text-muted" id="confidence2"
+            >Confidence:
+          </small>
+        </div>
+      </div>
 
+      <div class="card" id="card3">
+        <div class="card-header" id="card_header3">
+          <h5 class="card-title" id="plant_name3">Plant:</h5>
+          <h6 class="card-subtitle mb-2 text-muted" id="status3"></h6>
+        </div>
+        <div class="card-body" id="card_body3">
+          <p class="card-text" id="disease_desc3"></p>
+        </div>
+        <div class="card-footer" id="card_footer3">
+          <small class="text-muted" id="confidence3"
+            >Confidence:
+          </small>
+        </div>
+      </div>
+    </div>
+    <br />
+  </div>
 {% endblock %}
