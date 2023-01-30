@@ -101,50 +101,50 @@ $(document).ready(function () {
                     confidences = [];
                     diseases_desc = [];
                     // log all child and subchild elements names indside result div
-                    $('#result').children().each(function() {
-                        console.log($(this).attr('id'));
-                        $(this).children().each(function() {
-                            console.log($(this).attr('id'));
-                            $(this).children().each(function() {
-                                $(this).children().each(function() {
-                                    console.log($(this).attr('id'));
-                                    // if its id is status1,2,3 add it to list called statuses
-                                    if($(this).attr('id') == 'status1' || $(this).attr('id') == 'status2' || $(this).attr('id') == 'status3'){
-                                        statuses.push($(this).attr('id'));
-                                    }else if($(this).attr('id') == 'plant_name1' || $(this).attr('id') == 'plant_name2' || $(this).attr('id') == 'plant_name3'){
-                                        plants.push($(this).attr('id'));
-                                    }else if($(this).attr('id') == 'confidence1' || $(this).attr('id') == 'confidence2' || $(this).attr('id') == 'confidence3'){
-                                        confidences.push($(this).attr('id'));
-                                    }else if($(this).attr('disease_desc1') == 'disease_desc1' || $(this).attr('disease_desc2') == 'disease_desc2' || $(this).attr('disease_desc3') == 'disease_desc3'){
-                                        diseases_desc.push($(this).attr('id'));
-                                    }
-                                });
-                            });
-                        });
-                    });
-                    console.log(plants);
-                    console.log(statuses);
-                    console.log(confidences);
-                    console.log(diseases_desc);
-                    //assign values to html the 3 html elements
-                    for(var i=0;i<3;i++){
-                        // add plant leaf imoji and plant name
-                        $('#'+plants[i]).text("🌿 "+json_data[i+1].plant+" 🌿");
-                        // add status
-                        if (json_data[i].status == 'Healthy'){
-                            $('#'+statuses[i]).text("Healthy 🌱").css('color', 'green !important');
-                        }else{
-                            $('#'+statuses[i]).text(json_data[i+1].disease).css('color', 'red !important');
-                        }
-                        // add disease description
-                        $('#'+diseases_desc[i]).text(json_data[i+1].disease);
-                        // add confidence
-                        $('#'+confidences[i]).text("Confidence: "+json_data[i+1].confidance+ "%");
-                        // add disease description
-                        $('#'+diseases_desc[i]).text('Comming Soon...');
-                    }
+                    // $('#result').children().each(function() {
+                    //     console.log($(this).attr('id'));
+                    //     $(this).children().each(function() {
+                    //         console.log($(this).attr('id'));
+                    //         $(this).children().each(function() {
+                    //             $(this).children().each(function() {
+                    //                 console.log($(this).attr('id'));
+                    //                 // if its id is status1,2,3 add it to list called statuses
+                    //                 if($(this).attr('id') == 'status1' || $(this).attr('id') == 'status2' || $(this).attr('id') == 'status3'){
+                    //                     statuses.push($(this).attr('id'));
+                    //                 }else if($(this).attr('id') == 'plant_name1' || $(this).attr('id') == 'plant_name2' || $(this).attr('id') == 'plant_name3'){
+                    //                     plants.push($(this).attr('id'));
+                    //                 }else if($(this).attr('id') == 'confidence1' || $(this).attr('id') == 'confidence2' || $(this).attr('id') == 'confidence3'){
+                    //                     confidences.push($(this).attr('id'));
+                    //                 }else if($(this).attr('disease_desc1') == 'disease_desc1' || $(this).attr('disease_desc2') == 'disease_desc2' || $(this).attr('disease_desc3') == 'disease_desc3'){
+                    //                     diseases_desc.push($(this).attr('id'));
+                    //                 }
+                    //             });
+                    //         });
+                    //     });
+                    // });
+                    // console.log(plants);
+                    // console.log(statuses);
+                    // console.log(confidences);
+                    // console.log(diseases_desc);
+                    // //assign values to html the 3 html elements
+                    // for(var i=0;i<3;i++){
+                    //     // add plant leaf imoji and plant name
+                    //     $('#'+plants[i]).text("🌿 "+json_data[i+1].plant+" 🌿");
+                    //     // add status
+                    //     if (json_data[i].status == 'Healthy'){
+                    //         $('#'+statuses[i]).text("Healthy 🌱").css('color', 'green !important');
+                    //     }else{
+                    //         $('#'+statuses[i]).text(json_data[i+1].disease).css('color', 'red !important');
+                    //     }
+                    //     // add disease description
+                    //     $('#'+diseases_desc[i]).text(json_data[i+1].disease);
+                    //     // add confidence
+                    //     $('#'+confidences[i]).text("Confidence: "+json_data[i+1].confidance+ "%");
+                    //     // add disease description
+                    //     $('#'+diseases_desc[i]).text('Comming Soon...');
+                    // }
 
-                    $('#result').fadeIn(650);
+                    // $('#result').fadeIn(650);
                     console.log('Success!');
                 }
                 
