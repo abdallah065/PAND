@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>P.A.N.D System</title>
-    <script src="bootstrap-4.6.2-dist/js/jquery-3.6.0.js"></script>
+    <script src="static/js/main.js"></script>
+    <script src="static/js/bootstrap.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/js/popper.min.js"></script>
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="bootstrap-4.6.2-dist/css/bootstrap.css" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">      
 </head>
@@ -47,7 +54,7 @@
     <div id="all_results">
         <center><h2>Top Result</h2></center>
 
-        <hr class="hr hr-blurry" />
+                <hr class="hr hr-blurry" />
         <div class="card-deck" style="margin: 0; padding: 20px 0px 0px;" id="highest_result">
             <div class="card" id="highest_card">
                 <div class="card-header" id="highest_card_header">
@@ -58,7 +65,7 @@
                     <p class="card-text" id="highest_disease_desc"></p>
                 </div>
                 <div class="card-footer" id="highest_card_footer">
-                    <small class="text-muted" id="highest_confidence">Confidence: </small>
+                    <small class="text-muted black" id="highest_confidence">Confidence: </small>
                 </div>
             </div>
         </div>
