@@ -470,7 +470,7 @@ background-color: #212121;
 
 .main-top {
   background: linear-gradient(rgba(46, 46, 46, 0.493), rgba(27, 27, 27, 0.466)),
-    url(../images/b7.jpg) no-repeat bottom;
+    url(../images/b71.jpg) no-repeat bottom;
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -535,7 +535,7 @@ button.btn1:hover,
 /*--inner-banner -- */
 .inner_page-banner {
   text-align: center;
-  background: url(../images/b7.jpg) no-repeat center;
+  background: url(../images/b71.jpg) no-repeat center;
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;

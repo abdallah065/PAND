@@ -90,7 +90,7 @@
         <div class="row">
           <div class="col-lg-6 about-imgs-txt pt-3">
             <img
-              src="static/images/4.jpg"
+              src="static/images/41.jpg"
               alt="news image"
               class="img-fluid"
               style="border-radius: 8px"
@@ -100,17 +100,17 @@
             <h3 class="title text-center">About</h3>
             <div class="about-para-txt">
               <p>
-                Food security for billions of people on earth requires
-                minimizing crop damage by timely detection of
-                diseases.Developing methods for detection of plant diseases
-                serves the dual purpose of increasing crop yield and reducing
-                pesticide use without knowing about the proper disease. Along
-                with development of better crop varieties, disease detection is
-                thus paramount goal for achieving food security. The traditional
-                method of disease detection has been to use manual examination
-                by either farmers or experts, which can be time consuming and
-                costly, proving infeasible for millions of small and medium
-                sized farms around the world.
+                For the billions of people on the planet to have access to food,
+                agricultural loss must be minimised through early disease
+                diagnosis. The development of plant disease detection techniques
+                has the twin benefits of boosting crop output and decreasing
+                pesticide use that isn't directed at the right illness.
+                Therefore, ensuring food security requires disease detection as
+                well as the development of better crop varieties. Manual
+                examination by farmers or professionals has been the
+                conventional method of disease detection, but this may be
+                time-consuming and expensive, making it unfeasible for millions
+                of small and medium-sized farms around the world.
               </p>
             </div>
           </div>
@@ -176,30 +176,35 @@
 
         <div>
           <center>
-            <form id="upload-file" method="post" enctype="multipart/form-data">
-              <label for="imageUpload" class="upload-label"> Choose... </label>
-              <input
-                type="file"
-                name="file"
-                id="imageUpload"
-                accept=".png, .jpg, .jpeg, .PNG, .JPG, .JPEG"
-              />
-            </form>
-          </center>
-
-          <center>
-            <div class="image-section" style="display: none">
-              <div class="img-preview">
-                <div id="imagePreview"></div>
-              </div>
-              <div>
-                <button
-                  type="button"
-                  class="btn btn-primary btn-lg"
-                  id="btn-predict"
-                >
-                  Predict!
-                </button>
+            <div class="container">
+              <form
+                id="upload-file"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <label for="imageUpload" class="upload-label">
+                  Choose...
+                </label>
+                <input
+                  type="file"
+                  name="file"
+                  id="imageUpload"
+                  accept=".png, .jpg, .jpeg, .PNG, .JPG, .JPEG"
+                />
+              </form>
+              <div class="image-section" style="display: none">
+                <div class="img-preview">
+                  <div id="imagePreview"></div>
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-lg"
+                    id="btn-predict"
+                  >
+                    Predict!
+                  </button>
+                </div>
               </div>
             </div>
           </center>
@@ -208,9 +213,6 @@
 
           <hr class="hr hr-blurry" />
           <div id="all_results">
-            <center><h2>Top Result</h2></center>
-
-            <hr class="hr hr-blurry" />
             <div
               class="card-deck"
               style="margin: 0; padding: 20px 0px 0px"
@@ -228,7 +230,7 @@
                   <p class="card-text" id="highest_disease_desc"></p>
                 </div>
                 <div class="card-footer" id="highest_card_footer">
-                  <small class="text-muted black" id="highest_confidence"
+                  <small class="text-muted " id="highest_confidence"
                     >Confidence:
                   </small>
                 </div>
