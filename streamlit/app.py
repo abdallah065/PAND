@@ -15,7 +15,7 @@ st.set_page_config(page_title="P.A.N.D System", page_icon=":seedling:", layout="
 st.title("P.A.N.D System")
 
 #supported plants
-with open("streamlit\\classes_out.json", "r") as f:
+with open("classes_out.json", "r") as f:
     classes = json.load(f)
 
 
