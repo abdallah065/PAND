@@ -1,4 +1,4 @@
-##Plant Disease Detection Project
+## Plant Disease Detection Project
 
 #Introduction
 Plant disease detection is an important aspect of agriculture and horticulture. Early detection of plant diseases can prevent the spread of the disease and minimize crop losses. In this project, we aim to develop a system for detecting plant diseases using machine learning algorithms.
