@@ -157,7 +157,7 @@ def get_image(url,darw=False,local=True,time_out=20):
             response = requests.get(url,timeout=time_out)
             image = Image.open(io.BytesIO(response.content))
         except Exception as e:
-            raise Exception("Error loading image from server: {}".format(e.__cause__))
+            return Exception("Error loading image from server: {}".format(e.__cause__))
     #reshape image to (256, 256, 3)
     if image.size != (256, 256):
         image = image.resize((256, 256))
