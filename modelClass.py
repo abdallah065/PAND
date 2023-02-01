@@ -136,6 +136,17 @@ def get_model():
     model = model.eval()
     return model
 
+def prepare_image(image):
+    #transform numpy array to PIL image
+    image = Image.fromarray(image)
+    #reshape image to (256, 256, 3)
+    if image.size != (256, 256):
+        image = image.resize((256, 256))
+    image = image.convert('RGB')
+    image = transform(image)
+    image = image.unsqueeze(0)
+    return image
+
 #load the image from the url
 def get_image(url,darw=False,local=True,time_out=20):
     if local:
@@ -195,7 +206,7 @@ def predict_image(image ,model , darw=False, local=True):
     #the confidance of all classes
     confidance = torch.nn.functional.softmax(yb, dim=1)
     #return the max 3 confidances and the labeles
-    confidance , preds = torch.topk(confidance,4)
+    confidance , preds = torch.topk(confidance,3)
     confidance = confidance[0].tolist()
     preds = preds[0].tolist()
     data = [] 

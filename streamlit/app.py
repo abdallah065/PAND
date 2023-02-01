@@ -24,8 +24,12 @@ image = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg","JPJ", "P
 if image is None:
     image = st.text_input("Enter an image URL")
     if image is not None:
-        image = mc.get_image(url=image,local=False)
-else:
+        try:
+            image = mc.get_image(url=image,local=False)
+        except Exception as e:
+            st.write("Invalid URL")
+            image = None
+else: 
     #transform the image to numpy array
     image = np.array(Image.open(image))
     
