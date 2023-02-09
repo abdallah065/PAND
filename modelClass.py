@@ -133,7 +133,6 @@ def get_model():
     model_path = os.path.join(os.path.dirname(__file__),'plant-disease-model1.pth')
     #check if the model is exist
     model.load_state_dict(torch.load(model_path, map_location=device))
-    model = model.eval()
     return model
 
 def prepare_image(image):

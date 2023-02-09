@@ -100,7 +100,7 @@ if uploaded:
     #set the footer of the app
 
     #cuase and treatment of the disease html 
-    with open("streamlit/result_html.json", 'r') as f:
+    with open("result_html.json", 'r') as f:
         result_html = json.load(f)
 
     #show a horizontal line in center

@@ -148,7 +148,7 @@ def prepare_image(image):
     return image
 
 #load the image from the url
-def get_image(url,darw=False,local=True,time_out=20):
+def get_image(url,darw=False,local=True,time_out=60):
     if local:
         image = Image.open(url)
     else:
