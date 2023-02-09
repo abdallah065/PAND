@@ -5,6 +5,8 @@ import numpy as np
 from PIL import Image           # for checking images
 import modelClass as mc
 import json
+#import mysql
+import mysql 
 
 #load the model
 model = mc.get_model()
@@ -32,6 +34,17 @@ st.subheader("Plant Analysis and Disease Detection System")
 st.write("This is a web app that can detect plant diseases and give you the best treatment for the disease. It can also detect the status of the plant (healthy, unhealthy, or dead).")
 
 uploaded = False
+#try get image link from mysql
+db_name = "id19863519_sensors"
+db_user = "id19863519_aubis5d"
+db_host = "localhost"
+db_pass = "IrvF93&RH<@{wQvd"
+
+#connect to mysql
+try:
+    
+
+
 #load the image by upload or url
 image = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg","JPJ", "PNG", "JPEG"])
 if image is None:
