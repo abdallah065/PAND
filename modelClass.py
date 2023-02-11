@@ -133,6 +133,7 @@ def get_model():
     model_path = os.path.join(os.path.dirname(__file__),'plant-disease-model1.pth')
     #check if the model is exist
     model.load_state_dict(torch.load(model_path, map_location=device))
+    model = model.eval()
     return model
 
 def prepare_image(image):
@@ -147,7 +148,7 @@ def prepare_image(image):
     return image
 
 #load the image from the url
-def get_image(url,darw=False,local=True,time_out=20):
+def get_image(url,darw=False,local=True,time_out=60):
     if local:
         image = Image.open(url)
     else:
@@ -156,7 +157,7 @@ def get_image(url,darw=False,local=True,time_out=20):
             response = requests.get(url,timeout=time_out)
             image = Image.open(io.BytesIO(response.content))
         except Exception as e:
-            raise Exception("Error loading image from server: {}".format(e.__cause__))
+            return Exception("Error loading image from server: {}".format(e.__cause__))
     #reshape image to (256, 256, 3)
     if image.size != (256, 256):
         image = image.resize((256, 256))
@@ -185,17 +186,21 @@ def __keystoint(x):
     return new
 
 #load the classes_out.json
-def get_classes_out():
-    classes_out_path = os.path.join(os.path.dirname(__file__),'classes_out.json')
+def get_classes_out(lang='en'):
+    if lang == 'en':
+        classes_out_path = os.path.join(os.path.dirname(__file__),'classes_out.json')
+    else:
+        classes_out_path = os.path.join(os.path.dirname(__file__),'classes_out_ar.json')
     with open(classes_out_path, 'r') as f:
         jsontxt = json.load(f)
     r = json.dumps(jsontxt)
     classes_out = json.loads(r,object_pairs_hook=__keystoint)
     return classes_out
-classes_out = get_classes_out()
+classes_out_en = get_classes_out('en')
+classes_out_ar = get_classes_out('ar')
 
 #predict the test data
-def predict_image(image ,model , darw=False, local=True):
+def predict_image(image ,model ,lang="en" , darw=False, local=True):
     #check if the image is url or image
     if type(image) == str:
         img = get_image(url=image ,darw=darw,local=local)
@@ -210,7 +215,10 @@ def predict_image(image ,model , darw=False, local=True):
     preds = preds[0].tolist()
     data = [] 
     for i in range(len(preds)):
-        data.append(classes_out[preds[i]])
+        if lang == "ar":
+            data.append(classes_out_ar[preds[i]])
+        else:
+            data.append(classes_out_en[preds[i]])
         data[i]["confidance"] = round(confidance[i]*100,2)
         data[i]["class_name"] = get_label(preds[i])
     return data
