@@ -2,7 +2,7 @@
 $db_name = "id19863519_sensors";
 $db_user = "id19863519_aubis5d";
 $db_host = "localhost";
-$db_pass = "IrvF93&RH<@{wQvd";
+$db_pass = "****93&RH<@{****";
 
 if(isset($_GET["submit"])){
     $data = array();
