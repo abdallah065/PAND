@@ -145,9 +145,27 @@ uploaded = False
 
 #switch botton to choose between automatic detection and manual detection
 if lang == "English":
-    option = st.selectbox("Choose the detection method", ["Automatic Detection", "Manual Detection"])
+    #split the screen into 2 columns one for the detection method and the update interval for automatic detection
+    col1, col2 = st.columns(2)
+    with col1:
+        option = st.selectbox("Choose detection method", ["Automatic Detection", "Manual Detection"])    
+    with col2:
+        if option == "Automatic Detection":
+            time_update = st.number_input("Update interval (in seconds)", min_value=1, value=10, step=1, max_value=1000)
+        else:
+            #disable the update interval for manual detection
+            time_update = st.number_input("Update interval (in seconds)", min_value=1, value=10, step=1, max_value=1000, disabled=True)
 else:
-    option = st.selectbox("اختر طريقة الكشف", ["كشف تلقائي", "كشف يدوي"])
+    #split the screen into 2 columns one for the detection method and the update interval for automatic detection
+    col1, col2 = st.columns(2)
+    with col1:
+        option = st.selectbox("اختر طريقة الكشف", ["الكشف التلقائي", "الكشف اليدوي"])    
+    with col2:
+        if option == "الكشف التلقائي":
+            time_update = st.number_input("فترة التحديث (بالثواني)", min_value=1, value=10, step=1, max_value=1000)
+        else:
+            #disable the update interval for manual detection
+            time_update = st.number_input("فترة التحديث (بالثواني)", min_value=1, value=10, step=1, max_value=1000, disabled=True)
     
 
 def php_request():
@@ -213,7 +231,7 @@ if option == "Automatic Detection" or option == "كشف تلقائي":
         else:
             option = "كشف يدوي"
     #wait 60 seconds
-    time.sleep(60)
+    time.sleep(time_update)
     #reload the page
     st.experimental_rerun()
     
