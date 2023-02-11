@@ -159,9 +159,9 @@ else:
     #split the screen into 2 columns one for the detection method and the update interval for automatic detection
     col1, col2 = st.columns(2)
     with col1:
-        option = st.selectbox("اختر طريقة الكشف", ["الكشف التلقائي", "الكشف اليدوي"])    
+        option = st.selectbox("اختر طريقة الكشف", ["كشف تلقائي", "الكشف اليدوي"])    
     with col2:
-        if option == "الكشف التلقائي":
+        if option == "كشف تلقائي":
             time_update = st.number_input("فترة التحديث (بالثواني)", min_value=1, value=10, step=1, max_value=1000)
         else:
             #disable the update interval for manual detection
