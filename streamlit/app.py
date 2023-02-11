@@ -5,70 +5,14 @@ import numpy as np
 from PIL import Image           # for checking images
 import modelClass as mc
 import json
-#import mysql
-import mysql 
-
-#load the model
-model = mc.get_model()
-
-st.set_page_config(page_title="P.A.N.D System", page_icon=":seedling:", layout="wide", initial_sidebar_state="auto")
-
-#set the title of the app
-st.title("P.A.N.D System")
-
-#supported plants
-with open("classes_out.json", "r") as f:
-    classes = json.load(f)
+import requests
 
 
-#set the sidebar of the app
-st.sidebar.title("Supported Plants")
-st.sidebar.write("This app can detect the following plants:")
-for i in range(len(classes)):
-    st.sidebar.write(classes[str(i)]["plant"]+": "+classes[str(i)]["disease"],":seedling:")
-
-#set the subtitle of the app
-st.subheader("Plant Analysis and Disease Detection System")
-
-#set the description of the app
-st.write("This is a web app that can detect plant diseases and give you the best treatment for the disease. It can also detect the status of the plant (healthy, unhealthy, or dead).")
-
-uploaded = False
-#try get image link from mysql
-db_name = "id19863519_sensors"
-db_user = "id19863519_aubis5d"
-db_host = "localhost"
-db_pass = "IrvF93&RH<@{wQvd"
-
-#connect to mysql
-try:
-    
-
-
-#load the image by upload or url
-image = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg","JPJ", "PNG", "JPEG"])
-if image is None:
-    image_url = st.text_input("Enter an image URL")
-    if image_url != "":
-        image = mc.get_image(url=image_url,local=False)
-        #if image belongs to Exiption, then it is not a valid url
-        if isinstance(image, Exception):
-            st.write(image)
-        else:
-            uploaded = True
-    else:
-       st.write(Exception("Please enter an image URL or upload an image"))
-else:
-    uploaded = True 
-    #transform the image to numpy array
-    image = np.array(Image.open(image))
-    
-    image = mc.prepare_image(image)
-if uploaded:
+def predict(image):
     #show the progress bar
     my_bar = st.progress(0)
     for percent_complete in range(100):
-        time.sleep(0.005)
+        time.sleep(0.003)
         my_bar.progress(percent_complete + 1)
         
     st.write("")
@@ -121,4 +65,104 @@ if uploaded:
     
     #display the cuase and treatment of the disease html
     st.markdown(result_html[data[0]['class_name']], unsafe_allow_html=True)
-st.markdown("Developed with :heart: by [Abdallah Saber](https://www.linkedin.com/in/abdallah-saber-530a5b213/)", unsafe_allow_html=True)
+
+
+#load the model
+model = mc.get_model()
+
+st.set_page_config(page_title="P.A.N.D System", page_icon=":seedling:", layout="wide", initial_sidebar_state="auto")
+
+#set the title of the app
+st.title("P.A.N.D System")
+
+#supported plants
+with open("classes_out.json", "r") as f:
+    classes = json.load(f)
+
+
+#set the sidebar of the app
+st.sidebar.title("Supported Plants")
+st.sidebar.write("This app can detect the following plants:")
+for i in range(len(classes)):
+    st.sidebar.write(classes[str(i)]["plant"]+": "+classes[str(i)]["disease"],":seedling:")
+
+#set the subtitle of the app
+st.subheader("Plant Analysis and Disease Detection System")
+
+#set the description of the app
+st.write("This is a web app that can detect plant diseases and give you the best treatment for the disease. It can also detect the status of the plant (healthy, unhealthy, or dead).")
+
+uploaded = False
+
+#switch botton to choose between automatic detection and manual detection
+option = st.selectbox("Choose the detection method", ["Automatic Detection", "Manual Detection"])
+
+def php_request():
+    #make a request to the php server to get the image link
+    try:
+        url = "https://anubis4bug.000webhostapp.com/img_upload/get_file_name.php"
+        response = requests.get(url)
+        #response is json
+        response = response.json()
+        #get the image link
+        if len(response["link"]) == 0:
+            image = Exception("No image found in database")
+        else:
+            image = "https://anubis4bug.000webhostapp.com/uploads/" + response["link"]
+        
+    except Exception as e:
+        image = e
+    return image
+
+#choose the detection method **************************************
+#automatic detection
+if option == "Automatic Detection":
+    image = php_request()
+    image_url = php_request()
+    if isinstance(image, Exception):
+        st.write(Exception("Error loading image from database"))
+        st.write(image)
+        #set the option to manual detection
+        uploaded = False
+    else:
+        image = mc.get_image(url=image,local=False)
+        uploaded = True
+    
+    if uploaded:
+        #show the small image
+        st.image(str(image_url), caption="Uploaded Image.", width=300)
+        predict(image)
+        
+    else:
+        option = "Manual Detection"
+    #wait 20 seconds
+    time.sleep(60)
+    #reload the page
+    st.experimental_rerun()
+    
+#manual detection
+else:
+    #load the image by upload or url
+    image = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg","JPJ", "PNG", "JPEG"])
+    if image is None:
+        image_url = st.text_input("Enter an image URL")
+        if image_url != "":
+            image = mc.get_image(url=image_url,local=False)
+            #if image belongs to Exiption, then it is not a valid url
+            if isinstance(image, Exception):
+                st.write(image)
+            else:
+                uploaded = True
+        else:
+            st.write(Exception("Please enter an image URL or upload an image"))
+    else:
+        uploaded = True 
+        #transform the image to numpy array
+        image = np.array(Image.open(image))
+        
+        image = mc.prepare_image(image)
+        
+
+if uploaded:
+    predict(image)
+    st.markdown("Developed with :heart: by [Abdallah Saber](https://www.linkedin.com/in/abdallah-saber-530a5b213/)", unsafe_allow_html=True)
