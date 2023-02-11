@@ -96,10 +96,10 @@ def predict(image):
 
     #cuase and treatment of the disease html 
     if lang == "English":
-        with open("result_html.json", 'r') as f:
+        with open("streamlit/result_html.json", 'r') as f:
             result_html = json.load(f)
     else:
-        with open("result_html_ar.json", 'r') as f:
+        with open("streamlit/result_html_ar.json", 'r') as f:
             result_html = json.load(f)
 
     #show a horizontal line in center
@@ -112,10 +112,10 @@ def predict(image):
 
 #supported plants
 if lang == "English":
-    with open("classes_out.json", "r") as f:
+    with open("streamlit/classes_out.json", "r") as f:
         classes = json.load(f)
 else:
-    with open("classes_out_ar.json", "r") as f:
+    with open("streamlit/classes_out_ar.json", "r") as f:
         classes = json.load(f)
 
 #set the sidebar of the app
