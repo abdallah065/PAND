@@ -11,10 +11,10 @@ import requests
 #load the model
 model = mc.get_model()
 
-st.set_page_config(page_title="Orchardium", page_icon=":seedling:", layout="wide", initial_sidebar_state="auto")
+st.set_page_config(page_title="PAND System", page_icon=":seedling:", layout="wide", initial_sidebar_state="auto")
 
 #set the title of the app
-st.title("Orchardium")
+st.title("PAND System")
 
 
 #option to choose between english and arabic
