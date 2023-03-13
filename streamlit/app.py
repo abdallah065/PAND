@@ -1,5 +1,4 @@
 #create a streamlit app to display the results of plant disease detection
-import streamlit as st
 import time
 import numpy as np
 from PIL import Image           # for checking images
